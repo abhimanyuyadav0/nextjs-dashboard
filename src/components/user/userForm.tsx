@@ -10,7 +10,7 @@ import { create_user, update_user } from "@/api/services/user";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { setUserEdit } from "@/store/reducers/userSlice";
+import { setUserEdit, setUserId } from "@/store/reducers/userSlice";
 
 export default function UserForm(props: any) {
   const dispatch = useDispatch();
@@ -52,6 +52,7 @@ export default function UserForm(props: any) {
     },
     onSuccess: (data: any, variables, context) => {
       if (data?.success) {
+        dispatch(setUserId(""));
         toast.success("Detail Updated Successfully!");
         router.push("/dashboard/users");
         dispatch(setUserEdit(false));

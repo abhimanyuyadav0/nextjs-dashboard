@@ -22,11 +22,10 @@ interface PaginatedUsers extends PaginationData {
 export const getAllUsers = async (
   size: any,
   pageNumber: any,
-  pagination: any,
-): Promise<PaginatedUsers | IUser[]> => {
+  pagination: any
+): Promise<PaginatedUsers | IUser[] | any> => {
   pageNumber = pageNumber || 1;
   size = size || 10;
-  console.log(pageNumber, size, pagination);
   const skip = (pageNumber - 1) * parseInt(size);
 
   const query: any = {};
@@ -44,7 +43,7 @@ export const getAllUsers = async (
     };
   } else {
     const users = await User.find(query).exec();
-    return users;
+    return { data: users };
   }
 };
 

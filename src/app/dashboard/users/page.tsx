@@ -7,6 +7,6 @@ export default async function Page() {
   // const users = useSelector((state:any) => state.auth.user);
   // console.log(users,'user')
   return (
-    <Index props={'props'} />
+    <Index  />
   )
 }

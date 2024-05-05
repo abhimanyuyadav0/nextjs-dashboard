@@ -65,12 +65,7 @@ export const getAll = async (
 ) => {
   try {
     const { size, pageNumber, pagination } = req.query;
-    console.log("size, pageNumber, pagination", size, pageNumber, pagination);
-    const users = await getAllUsers(
-      size,
-      pageNumber,
-      pagination ? pagination : true
-    );
+    const users = await getAllUsers(size, pageNumber, pagination);
     res.json(users);
   } catch (error) {
     next(error);

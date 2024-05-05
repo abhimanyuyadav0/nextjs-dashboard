@@ -1,6 +1,5 @@
 "use client";
 import {
-  Alert,
   Button,
   Col,
   Form,
@@ -17,12 +16,10 @@ import { loginUser } from "@/store/actions/authActions";
 import Link from "next/link";
 import { Dispatch } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
   const [userData, setUserData] = useState<any>({ email: "", password: "" });
   const dispatch: Dispatch<any> = useDispatch();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,20 +45,10 @@ export default function Login() {
   useEffect(() => {
     if (isAuthenticated) {
       router.push("/dashboard");
-    } else {
-      toast.error("unable toroute");
     }
   }, [isAuthenticated]);
   return (
     <>
-      <Alert
-        variant='danger'
-        show={error !== ""}
-        onClose={() => setError("")}
-        dismissible
-      >
-        {error}
-      </Alert>
       <Form onSubmit={handleSubmit}>
         <InputGroup className='mb-3'>
           <InputGroup.Text>

@@ -1,41 +1,38 @@
 "use client";
-import { Alert, Button, Form, FormControl, InputGroup } from "react-bootstrap";
+import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
-import { SyntheticEvent, useState } from "react";
-import { deleteCookie, getCookie } from "cookies-next";
+import { SyntheticEvent, useEffect, useState } from "react";
 import InputGroupText from "react-bootstrap/InputGroupText";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { create_user } from "@/api/services/user";
 import { useSelector } from "react-redux";
+import { Grid, Stack, Typography } from "@mui/material";
+import Link from "next/link";
 
 export default function Signup() {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
     userName: "",
     email: "",
     password: "",
-    password_repeat: "",
   });
   const isAuthenticated: boolean = useSelector(
-    (state: { auth: { isAuthenticated: boolean } }) => state.auth.isAuthenticated
+    (state: { auth: { isAuthenticated: boolean } }) =>
+      state.auth.isAuthenticated
   );
-  const getRedirect = () => {
-    const redirect = getCookie("redirect");
-    if (redirect) {
-      deleteCookie("redirect");
-      return redirect.toString();
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/dashboard");
     }
-    return "/";
-  };
-console.log(isAuthenticated,'isAuthenticated')
+  }, [isAuthenticated]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserData((prevUserData) => ({
@@ -49,13 +46,11 @@ console.log(isAuthenticated,'isAuthenticated')
       return {};
     },
     onError: (error: any) => {
-      if (error?.result?.error === "Something went wrong.") {
-        toast.error("Please fill all the detail", { autoClose: 2000 });
-      }
+      toast.error(error.result.message);
     },
     onSuccess: async (data: any, variables, context: any) => {
-      console.log(data,'data');
-      toast.success("user created successfully", { autoClose: 2000 });
+      toast.success("user created successfully");
+      router.push("/login");
     },
   });
   const signup = async (e: SyntheticEvent) => {
@@ -75,125 +70,120 @@ console.log(isAuthenticated,'isAuthenticated')
 
       addUser.mutate(formData);
     } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      }
-    } finally {
-      setSubmitting(false);
+      console.log("error", err);
     }
   };
 
   return (
     <>
-      <Alert
-        variant='danger'
-        show={error !== ""}
-        onClose={() => setError("")}
-        dismissible
-      >
-        {error}
-      </Alert>
-      <Form onSubmit={signup}>
-        <InputGroup className='mb-3'>
-          <InputGroupText>
-            <FontAwesomeIcon icon={faUser} fixedWidth />
-          </InputGroupText>
-          <FormControl
-            name='firstName'
-            required
-            disabled={submitting}
-            placeholder='First Name'
-            aria-label='firstName'
-            onChange={handleChange}
-            value={userData.firstName}
-          />
-        </InputGroup>
-        <InputGroup className='mb-3'>
-          <InputGroupText>
-            <FontAwesomeIcon icon={faUser} fixedWidth />
-          </InputGroupText>
-          <FormControl
-            name='lastName'
-            required
-            disabled={submitting}
-            placeholder='Last Name'
-            aria-label='lastName'
-            onChange={handleChange}
-            value={userData.lastName}
-          />
-        </InputGroup>
-        <InputGroup className='mb-3'>
-          <InputGroupText>
-            <FontAwesomeIcon icon={faUser} fixedWidth />
-          </InputGroupText>
-          <FormControl
-            name='userName'
-            required
-            disabled={submitting}
-            placeholder='Username'
-            aria-label='Username'
-            onChange={handleChange}
-            value={userData.userName}
-          />
-        </InputGroup>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Stack
+            direction='row'
+            justifyContent='space-between'
+            alignItems='baseline'
+            sx={{ mb: { xs: -0.5, sm: 0.5 } }}
+          >
+            <Typography variant='h3'>Sign up</Typography>
+            <Link href={"/login"}>
+              <Typography
+                variant='body1'
+                sx={{ textDecoration: "none" }}
+                color='primary'
+              >
+                Already have an account?
+              </Typography>
+            </Link>
+          </Stack>
+        </Grid>
+        <Grid item xs={12}>
+          <Form onSubmit={signup}>
+            <InputGroup className='mb-3'>
+              <InputGroupText>
+                <FontAwesomeIcon icon={faUser} fixedWidth />
+              </InputGroupText>
+              <FormControl
+                name='firstName'
+                required
+                disabled={submitting}
+                placeholder='First Name'
+                aria-label='firstName'
+                onChange={handleChange}
+                value={userData.firstName}
+              />
+            </InputGroup>
+            <InputGroup className='mb-3'>
+              <InputGroupText>
+                <FontAwesomeIcon icon={faUser} fixedWidth />
+              </InputGroupText>
+              <FormControl
+                name='lastName'
+                required
+                disabled={submitting}
+                placeholder='Last Name'
+                aria-label='lastName'
+                onChange={handleChange}
+                value={userData.lastName}
+              />
+            </InputGroup>
+            <InputGroup className='mb-3'>
+              <InputGroupText>
+                <FontAwesomeIcon icon={faUser} fixedWidth />
+              </InputGroupText>
+              <FormControl
+                name='userName'
+                required
+                disabled={submitting}
+                placeholder='Username'
+                aria-label='Username'
+                onChange={handleChange}
+                value={userData.userName}
+              />
+            </InputGroup>
 
-        <InputGroup className='mb-3'>
-          <InputGroupText>
-            <FontAwesomeIcon icon={faEnvelope} fixedWidth />
-          </InputGroupText>
-          <FormControl
-            type='email'
-            name='email'
-            required
-            disabled={submitting}
-            placeholder='Email'
-            aria-label='Email'
-            onChange={handleChange}
-            value={userData.email}
-          />
-        </InputGroup>
+            <InputGroup className='mb-3'>
+              <InputGroupText>
+                <FontAwesomeIcon icon={faEnvelope} fixedWidth />
+              </InputGroupText>
+              <FormControl
+                type='email'
+                name='email'
+                required
+                disabled={submitting}
+                placeholder='Email'
+                aria-label='Email'
+                onChange={handleChange}
+                value={userData.email}
+              />
+            </InputGroup>
 
-        <InputGroup className='mb-3'>
-          <InputGroupText>
-            <FontAwesomeIcon icon={faLock} fixedWidth />
-          </InputGroupText>
-          <FormControl
-            type='password'
-            name='password'
-            required
-            disabled={submitting}
-            placeholder='Password'
-            aria-label='Password'
-            onChange={handleChange}
-            value={userData.password}
-          />
-        </InputGroup>
+            <InputGroup className='mb-3'>
+              <InputGroupText>
+                <FontAwesomeIcon icon={faLock} fixedWidth />
+              </InputGroupText>
+              <FormControl
+                type='password'
+                name='password'
+                required
+                disabled={submitting}
+                placeholder='Password'
+                aria-label='Password'
+                onChange={handleChange}
+                value={userData.password}
+              />
+            </InputGroup>
 
-        <InputGroup className='mb-3'>
-          <InputGroupText>
-            <FontAwesomeIcon icon={faLock} fixedWidth />
-          </InputGroupText>
-          <FormControl
-            type='password'
-            name='password_repeat'
-            required
-            disabled={submitting}
-            placeholder='Repeat password'
-            aria-label='Repeat password'
-            onChange={handleChange}
-            value={userData.password_repeat}
-          />
-        </InputGroup>
-
-        <Button
-          type='submit'
-          className='d-block w-100'
-          disabled={submitting}
-          variant='success'
-        >
-          Create Account
-        </Button>
-      </Form>
+            <Button
+              type='submit'
+              className='d-block w-100'
+              disabled={submitting}
+              variant='success'
+            >
+              Create Account
+            </Button>
+          </Form>
+        </Grid>
+      </Grid>
     </>
   );
 }
