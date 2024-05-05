@@ -9,23 +9,18 @@ export interface UserData {
 export const loginUser = (userData: UserData) => async (dispatch: any) => {
   try {
     const response = await login_user(userData);
-    if (
-      response.success &&
-      response.result.message != "User does not exist." &&
-      response.result.message != "Invalid password."
-    ) {
-      dispatch(login(response.result));
-      localStorage.setItem('token',response.result.token)
+    if (response) {
+      dispatch(login(response._doc));
+      localStorage.setItem("token", response.token);
     } else {
       toast.error("Login failed");
     }
   } catch (error) {
     console.error("Error during login:", error);
-    // toast.error("An error occurred during login");
   }
 };
 
 export const logoutUser = () => {
-      localStorage.removeItem('token')
-      return logout();
+  localStorage.removeItem("token");
+  return logout();
 };

@@ -9,18 +9,19 @@ import {
 } from "../../controllers/users.controller";
 import requireFieldsMiddleware from "../../middlewares/requireFieldsMiddleware";
 import { verifyToken } from "../../auth/jwt.auth";
+import authenticate from "../../middlewares/jwtAuth";
 const router = Router();
 
 // GET /Users/
-router.get("/", verifyToken, getAll);
+router.get("/", authenticate, getAll);
 
 // GET /Users/:id
-router.get("/:id", verifyToken, getById);
+router.get("/:id", authenticate, getById);
 
 // POST / registerUsers
 router.post(
   "/",
-  verifyToken,
+  authenticate,
   requireFieldsMiddleware(["email", "password"]),
   registerUser
 );
@@ -33,8 +34,8 @@ router.post(
 );
 
 // PATCH /Users/:id
-router.patch("/:id", verifyToken, updateById);
+router.patch("/:id", authenticate, updateById);
 
-router.delete("/:id", verifyToken, deleteById);
+router.delete("/:id", authenticate, deleteById);
 
 export { router as usersRoute };

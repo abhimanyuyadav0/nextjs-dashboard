@@ -3,7 +3,7 @@ import dashboard from './dashboard';
 import management from './management';
 
 const menuItems = {
-  items: [dashboard, pages]
+  items: [dashboard]
 };
 
 export default menuItems;

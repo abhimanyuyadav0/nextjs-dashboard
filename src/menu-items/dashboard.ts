@@ -1,8 +1,9 @@
 import {
   faCode,
   faGauge,
-  faLocationArrow,
   faRightToBracket,
+  faUser,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 const dashboard = {
   id: "group-dashboard",
@@ -23,7 +24,7 @@ const dashboard = {
       title: "User",
       type: "item",
       url: "/users",
-      icon: faCode,
+      icon: faUsers,
       breadcrumbs: false,
     },
   ],

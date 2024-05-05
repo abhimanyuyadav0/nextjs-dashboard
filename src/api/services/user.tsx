@@ -3,6 +3,7 @@ import api from "../handlers/api";
 
 const getAllUsers = async () => {
   const { data } = await api.get(apiEndPoint?.users);
+  console.log(data,'cccccccccc')
   return data;
 };
 const create_user = async (payload: any) => {
