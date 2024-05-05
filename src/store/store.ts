@@ -1,7 +1,13 @@
-"use client";
+// store/index.ts
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import rootReducer, { RootState } from './reducers';
 
-import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './reducers'; // Import your root reducer
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;
 
 const store = configureStore({
   reducer: rootReducer,

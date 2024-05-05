@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useContext } from "react";
-import { SidebarContext } from "@/app/ui/dashboard/sidebar-provider";
 import classNames from "classnames";
 import { useSelector, useDispatch } from "react-redux";
 import { closeMenu } from "@/store/reducers/sideMenuSlice";

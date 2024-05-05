@@ -15,9 +15,9 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
   return (
     <div
       className={classNames('sidebar d-flex flex-column position-fixed h-100', {
-        'sidebar-narrow': isOpen,
+        'sidebar-narrow': !isOpen,
         show: isOpen,
-        'md-hide': isOpen,
+        'md-hide': !isOpen,
       })}
       id="sidebar"
     >

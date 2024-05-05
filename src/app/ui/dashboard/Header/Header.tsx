@@ -13,10 +13,10 @@ export default function Header() {
         fluid
         className='header-navbar d-flex align-items-center justify-content-between'
       >
-        <div className="d-flex align-items-center">
+        <div className='d-flex align-items-center'>
           <HeaderSidebarToggler />
           <Link href='/' className='header-brand d-md-none'>
-            <h6 className="mb-0">CMG</h6>
+            <h6 className='mb-0'>CMG</h6>
           </Link>
           <div className='header-nav d-none d-md-flex'>
             <HeaderFeaturedNav />
@@ -31,10 +31,11 @@ export default function Header() {
           </div>
         </div>
       </Container>
-      <div className='header-divider border-top my-2 mx-sm-n2' />
-      <Container fluid>
-        <Breadcrumb />
-      </Container>
+      {/* <div className='header-divider border-top my-2 mx-sm-n2'>
+        <Container fluid>
+          <Breadcrumb />
+        </Container>
+      </div> */}
     </header>
   );
 }

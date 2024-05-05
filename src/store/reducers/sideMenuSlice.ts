@@ -3,7 +3,7 @@ interface SideMenuState {
   isOpen: boolean;
 }
 const initialState: SideMenuState = {
-  isOpen: false,
+  isOpen: true,
 };
 const sideMenuSlice = createSlice({
   name: 'sideMenu',
