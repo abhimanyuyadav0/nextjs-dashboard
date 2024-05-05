@@ -22,7 +22,6 @@ const authSlice = createSlice({
   reducers: {
     login: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
-      console.log(state.user,'kkkk',action)
       state.isAuthenticated = true;
     },
     logout: (state) => {

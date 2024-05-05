@@ -5,11 +5,8 @@ import express, { Application } from 'express';
 import connectDB from './src/config/db';
 import { errorHandler } from './src/middlewares/errorHandler';
 import { notFoundHandler } from './src/middlewares/notFoundHandler';
-import { getMessage, responseFormatMiddleware } from './src/middlewares/responseFormatMiddleware';
 import setHeaders from './src/middlewares/setheaders';
 import routesV1 from './src/routes/v1/index';
-// import routesV2 from './src/routes/v2/index';
-// import { encryptResponseBody } from './src/middlewares/cryptoMiddleware';
 
 dotenv.config();
 
@@ -30,14 +27,10 @@ app.use(
 
 // Middleware
 app.use(bodyParser.json({ limit: '25mb' }));
-app.use(bodyParser.urlencoded({ extended: false, limit: '25mb' }));
-app.use(responseFormatMiddleware(getMessage));
 app.use(express.static(__dirname + '/public'));
-// app.use(encryptResponseBody); // Global middleware to encrypt response body
 
 // Routes
 app.use('/', routesV1);
-// app.use('/CEV2FA', routesV2);
 
 // Error handling middleware
 app.use(errorHandler);

@@ -1,9 +1,10 @@
 import axios from 'axios';
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 export const IMG_URL = process.env.NEXT_PUBLIC_IMG_URL;
-const createAPI = () => {
+const createAPI = (token) => {
    const apiHeader = {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
    };
    const api = axios.create({
       baseURL: process.env.NEXT_PUBLIC_BASE_URL,

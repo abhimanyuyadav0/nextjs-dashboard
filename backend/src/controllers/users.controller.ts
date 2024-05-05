@@ -8,9 +8,9 @@ import {
   getUserByEmail,
   getUserById,
   getUserByIdV2,
-  getUserByUsername,
   updateUser,
 } from "../services/user.services";
+import { generateToken } from "../auth/jwt.auth";
 
 export const registerUser = async (
   req: Request,
@@ -155,11 +155,15 @@ export const loginUser = async (
       user = await getUserByEmail(email);
     }
     if (user) {
-      // const token = generateToken({ userId: user._id.toString() });
+      const token = generateToken({ userId: user._id.toString() });
       const hashedPassword = user.password;
       const isMatch = await bcrypt.compare(inputPassword, hashedPassword);
       if (isMatch) {
-        return res.status(200).json(user);
+        const data={
+          ...user,
+          token:token
+        }
+        return res.status(200).json(data);
       } else {
         return res
           .status(400)

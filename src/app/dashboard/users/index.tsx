@@ -9,11 +9,14 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { useRouter } from "next/navigation";
 import UserList from "@/components/user/userTable";
 import { GetUsersAPI } from "@/store/actions/userActions";
+import { useSelector } from "react-redux";
 
 export default function UserPage() {
   const dispatch: Dispatch<any> = useDispatch();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  // const loginedUser=useSelector((state: any) => state.auth.user);
+  // console.log(loginedUser,'loginedUser')
   useEffect(() => {
     setIsLoading(true);
     dispatch(GetUsersAPI());

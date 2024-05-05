@@ -48,7 +48,6 @@ export const getAllUsers = async (
 };
 
 export const getUserById = async (id: string): Promise<IUser | null> => {
-  // return await User.findById(id).populate(['workingCity', 'workingApartment']).exec()
   return await User.findById(id).exec();
 };
 export const getUserByIdV2 = async (id: string): Promise<IUser | null> => {
@@ -63,16 +62,6 @@ export const getUserByMobile = async (
 
 export const getUserByEmail = async (email: string): Promise<IUser | null> => {
   return await User.findOne({ email: email });
-};
-export const getUserByUsername = async (
-  userName?: string
-): Promise<IUser | null> => {
-  if (!userName) {
-    return null;
-  }
-  return await User.findOne({ userName: userName })
-    .populate(["workingCity"])
-    .exec();
 };
 
 export const updateUser = async (

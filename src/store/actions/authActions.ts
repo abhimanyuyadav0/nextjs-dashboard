@@ -15,15 +15,17 @@ export const loginUser = (userData: UserData) => async (dispatch: any) => {
       response.result.message != "Invalid password."
     ) {
       dispatch(login(response.result));
+      localStorage.setItem('token',response.result.token)
     } else {
       toast.error("Login failed");
     }
   } catch (error) {
     console.error("Error during login:", error);
-    toast.error("An error occurred during login");
+    // toast.error("An error occurred during login");
   }
 };
 
 export const logoutUser = () => {
-  return logout();
+      localStorage.removeItem('token')
+      return logout();
 };

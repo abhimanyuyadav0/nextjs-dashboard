@@ -1,21 +1,24 @@
-'use client'
+"use client";
 
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
+import { logoutUser } from "@/store/actions/authActions";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 
-export default function HeaderLogout({ children }: { children: React.ReactNode }) {
-  const router = useRouter()
-
+export default function HeaderLogout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const logout = async () => {
-    const res = await axios.post('/api/mock/logout')
-    if (res.status === 200) {
-      router.push('/login')
-    }
-  }
+    dispatch(logoutUser());
+    router.push("/login");
+  };
 
   return (
-    <div onClick={logout} onKeyDown={logout} role="button" tabIndex={0}>
+    <div onClick={logout} onKeyDown={logout} role='button' tabIndex={0}>
       {children}
     </div>
-  )
+  );
 }

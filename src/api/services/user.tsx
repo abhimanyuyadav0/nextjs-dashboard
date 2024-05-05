@@ -16,7 +16,6 @@ const getUserById = async (id: any) => {
 };
 
 const login_user = async (payload: any) => {
-  console.log(payload, "payloadpayload");
   const { data } = await api.post(apiEndPoint.login, payload);
   return data;
 };

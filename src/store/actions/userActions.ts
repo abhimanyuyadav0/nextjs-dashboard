@@ -8,8 +8,8 @@ export const GetUsersAPI = () => async (dispatch: any) => {
     if (response.success) {
       dispatch(getAllUser(response.result.data));
     }
-  } catch (error) {
+  } catch (error:any) {
     console.error("Error during login:", error);
-    toast.error("An error occurred during login");
+    toast.error(error.result.error);
   }
 };
