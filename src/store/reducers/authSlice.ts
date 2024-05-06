@@ -1,4 +1,3 @@
-// reducers/authSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface User {
@@ -9,11 +8,13 @@ interface User {
 interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
+  authToken:string;
 }
 
 const initialState: AuthState = {
   user: null,
   isAuthenticated: false,
+  authToken:''
 };
 
 const authSlice = createSlice({
@@ -28,9 +29,12 @@ const authSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
     },
+    setAuthToken:(state,action)=>{
+      state.authToken = action.payload;
+    }
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, setAuthToken } = authSlice.actions;
 
 export default authSlice.reducer;

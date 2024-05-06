@@ -8,16 +8,14 @@ interface UserInterface {
 
 interface UsersState {
   allUsers: UserInterface[];
-  loading: boolean;
-  error: any;
+  loadingUser: boolean;
   isEdit: boolean;
   editUserId: string;
 }
 
 const initialState: UsersState = {
   allUsers: [],
-  loading: false,
-  error: null,
+  loadingUser: false,
   isEdit: false,
   editUserId: '',
 };
@@ -28,25 +26,21 @@ const usersSlice = createSlice({
   reducers: {
     getAllUser: (state, action) => {
       state.allUsers = action.payload;
-      console.log(state.allUsers,'kkkk')
     },
-    fetchUsersStart(state) {
-      state.loading = true;
-      state.error = null;
+    userLoading(state, action) {
+      state.loadingUser = action.payload;
     },
     fetchUsersSuccess(state, action) {
-      state.loading = false;
+      state.loadingUser = false;
       state.allUsers = action.payload;
     },
     fetchUsersFailure(state, action) {
-      state.loading = false;
-      state.error = action.payload;
+      state.loadingUser = false;
     },
     setUserEdit(state, action) {
       state.isEdit = action.payload;
     },
-    setUserId(state, action) {
-      console.log(action.payload,'action.payload')
+    setEditUserId(state, action) {
       state.editUserId = action.payload;
     },
   },
@@ -54,11 +48,11 @@ const usersSlice = createSlice({
 
 export const {
   getAllUser,
-  fetchUsersStart,
+  userLoading,
   fetchUsersSuccess,
   fetchUsersFailure,
   setUserEdit,
-  setUserId,
+  setEditUserId,
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

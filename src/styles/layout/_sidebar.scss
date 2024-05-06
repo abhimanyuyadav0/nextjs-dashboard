@@ -1,7 +1,12 @@
-$sidebar-background: #05055C;
+$sidebar-background: #05055c;
 $sidebar-text-color: rgba(255, 255, 255, 0.6);
 $sidebar-brand-height: 4rem;
-$sidebar-brand-background: rgba(0, 0, 21, 0.2);
+$sidebar-brand-background: linear-gradient(
+    217deg,
+    rgba(255, 0, 0, 0.8),
+    rgba(255, 0, 0, 0) 70.71%
+  ),
+  linear-gradient(336deg, #05055c, rgba(0, 0, 255, 0) 70.71%);
 $sidebar-nav-group-background: rgba(0, 0, 0, 0.2);
 $sidebar-link-color: rgb(255, 255, 255);
 $sidebar-link-color-hover: rgba(255, 255, 255, 0.87);
@@ -23,7 +28,8 @@ $sidebar-overlay-z-index: 1025;
   width: var(--sidebar-width);
   background: $sidebar-background;
   color: $sidebar-text-color;
-  transition: margin-left 0.15s, margin-right 0.15s, box-shadow 0.075s, transform 0.15s, width 0.15s, z-index 0s ease 0.15s;
+  transition: margin-left 0.15s, margin-right 0.15s, box-shadow 0.075s,
+    transform 0.15s, width 0.15s, z-index 0s ease 0.15s;
   z-index: $sidebar-z-index;
 
   & + .wrapper {
@@ -127,7 +133,8 @@ $sidebar-overlay-z-index: 1025;
           }
         }
 
-        .nav-title, .nav-group-items {
+        .nav-title,
+        .nav-group-items {
           display: none;
         }
 

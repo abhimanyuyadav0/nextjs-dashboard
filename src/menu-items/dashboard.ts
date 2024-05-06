@@ -1,8 +1,5 @@
 import {
-  faCode,
   faGauge,
-  faRightToBracket,
-  faUser,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 const dashboard = {

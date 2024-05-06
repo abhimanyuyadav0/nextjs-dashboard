@@ -1,3 +1,4 @@
+'use client'
 import {
   Badge,
   Dropdown,
@@ -68,8 +69,8 @@ export default function HeaderProfileNav() {
             <DropdownItem>
               <ItemWithIcon icon={faBell}>
                 Updates
-                <Badge bg='info' className='ms-2'>
-                  42
+                <Badge bg='info' className='ml-2'>
+                  1
                 </Badge>
               </ItemWithIcon>
             </DropdownItem>

@@ -10,6 +10,7 @@ import {
 import classNames from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { Box } from '@mui/material'
 
 type SidebarNavGroupToggleProps = {
   eventKey: string;
@@ -43,9 +44,9 @@ const SidebarNavGroupToggle = (props: SidebarNavGroupToggleProps) => {
     >
       <FontAwesomeIcon className="nav-icon ms-n3" icon={icon} />
       {children}
-      <div className="nav-chevron ms-auto text-end">
+      <Box className="nav-chevron ms-auto text-end">
         <FontAwesomeIcon size="xs" icon={faChevronUp} />
-      </div>
+      </Box>
     </Button>
   )
 }

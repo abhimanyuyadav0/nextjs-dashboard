@@ -1,3 +1,4 @@
+'use client'
 import { Container } from "react-bootstrap";
 import React from "react";
 import SidebarOverlay from "@/app/ui/dashboard/Sidebar/SidebarOverlay";

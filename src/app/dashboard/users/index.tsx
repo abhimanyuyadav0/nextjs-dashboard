@@ -1,9 +1,8 @@
-"use client";
-
+'use client'
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Box, Button, Card, CardContent } from "@mui/material";
+import { Button, Card, CardContent, CircularProgress } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { useRouter } from "next/navigation";
@@ -15,8 +14,7 @@ export default function UserPage() {
   const dispatch: Dispatch<any> = useDispatch();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  // const loginedUser=useSelector((state: any) => state.auth.user);
-  // console.log(loginedUser,'loginedUser')
+  const loginedUser = useSelector((state: any) => state.auth.authToken);
   useEffect(() => {
     setIsLoading(true);
     dispatch(GetUsersAPI());
@@ -39,7 +37,7 @@ export default function UserPage() {
           </Button>
         </div>
         {isLoading ? (
-          <div>Loading...</div>
+          <div><CircularProgress color="secondary" /></div>
         ) : (
           <>
             <UserList />

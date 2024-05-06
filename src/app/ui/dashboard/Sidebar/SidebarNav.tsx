@@ -1,10 +1,4 @@
-import { faAddressCard, faStar } from "@fortawesome/free-regular-svg-icons";
-import {
-  faCode,
-  faGauge,
-  faLocationArrow,
-  faRightToBracket,
-} from "@fortawesome/free-solid-svg-icons";
+'use client'
 import React, { PropsWithChildren } from "react";
 import SidebarNavGroup from "@/app/ui/dashboard/Sidebar/SidebarNavGroup";
 import SidebarNavItem from "@/app/ui/dashboard/Sidebar/SidebarNavItem";

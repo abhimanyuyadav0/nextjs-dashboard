@@ -10,7 +10,7 @@ import { create_user, update_user } from "@/api/services/user";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { setUserEdit, setUserId } from "@/store/reducers/userSlice";
+import { setUserEdit, setEditUserId } from "@/store/reducers/userSlice";
 
 export default function UserForm(props: any) {
   const dispatch = useDispatch();
@@ -22,13 +22,17 @@ export default function UserForm(props: any) {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        userName: user.userName,
         phoneNumber: user.phoneNumber,
+        password: user.password,
       }
     : {
         firstName: "",
         lastName: "",
         email: "",
+        userName: "",
         phoneNumber: "",
+        password: "",
       };
 
   const {
@@ -44,39 +48,28 @@ export default function UserForm(props: any) {
 
   const updateUser = useMutation({
     mutationFn: (data) => update_user(data, user?._id),
-    onMutate: (variables) => {
-      return {};
-    },
-    onError: (error, variables, context) => {
+    onError: (error) => {
       console.log(error, `rolling back optimistic update`);
     },
-    onSuccess: (data: any, variables, context) => {
-      if (data?.success) {
-        dispatch(setUserId(""));
-        toast.success("Detail Updated Successfully!");
-        router.push("/dashboard/users");
-        dispatch(setUserEdit(false));
-      }
+    onSuccess: () => {
+      toast.success("Detail Updated Successfully!");
+      router.push("/dashboard/users");
+      dispatch(setUserEdit(false));
+      dispatch(setEditUserId(""));
     },
   });
   const createNewUser = useMutation({
     mutationFn: (val) => create_user(val),
-    onMutate: (variables) => {
-      return {};
+    onError: (error: any) => {
+      toast.error(error.message);
     },
-    onError: (error: any, variables, context) => {
-      toast.error(error.result.message);
-    },
-    onSuccess: async (data: any, variables, context) => {
-      if (data?.success) {
-        toast.success("User created");
-        router.push("/dashboard/users");
-      }
+    onSuccess: async (data: any) => {
+      toast.success("User created");
+      router.push("/dashboard/users");
     },
   });
   const onSubmit = async (data: any) => {
     setSubmitting(true);
-    console.log(data, "vvvvvvvvvvv");
     if (isEdit) {
       updateUser.mutate(data);
     } else {
@@ -136,15 +129,23 @@ export default function UserForm(props: any) {
         rules={{ required: "This field is required" }}
         errors={errors}
       />
-
       {!isEdit && (
-        <FormTextField
-          label='Password'
-          name='password'
-          control={control}
-          rules={{ required: "This field is required" }}
-          errors={errors}
-        />
+        <>
+          <FormTextField
+            label='User Name'
+            name='userName'
+            control={control}
+            rules={{ required: "This field is required" }}
+            errors={errors}
+          />
+          <FormTextField
+            label='Password'
+            name='password'
+            control={control}
+            rules={{ required: "This field is required" }}
+            errors={errors}
+          />
+        </>
       )}
 
       <Box sx={{ display: "flex", flex: "wrap", gap: 1 }}>

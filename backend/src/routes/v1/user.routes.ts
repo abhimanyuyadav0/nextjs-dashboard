@@ -8,23 +8,17 @@ import {
   updateById,
 } from "../../controllers/users.controller";
 import requireFieldsMiddleware from "../../middlewares/requireFieldsMiddleware";
-import { verifyToken } from "../../auth/jwt.auth";
 import authenticate from "../../middlewares/jwtAuth";
 const router = Router();
 
 // GET /Users/
-router.get("/", authenticate, getAll);
+router.get("/", getAll);
 
 // GET /Users/:id
-router.get("/:id", authenticate, getById);
+router.get("/:id", getById);
 
 // POST / registerUsers
-router.post(
-  "/",
-  authenticate,
-  requireFieldsMiddleware(["email", "password"]),
-  registerUser
-);
+router.post("/", requireFieldsMiddleware(["email", "password"]), registerUser);
 
 // POST /loginUsers
 router.post(
@@ -34,8 +28,8 @@ router.post(
 );
 
 // PATCH /Users/:id
-router.patch("/:id", authenticate, updateById);
+router.patch("/:id", updateById);
 
-router.delete("/:id", authenticate, deleteById);
+router.delete("/:id", deleteById);
 
 export { router as usersRoute };

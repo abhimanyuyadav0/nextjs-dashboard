@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import { logoutUser } from "@/store/actions/authActions";
 import { useRouter } from "next/navigation";

@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { useSearchParams } from "next/navigation";
 
 export default function Page({ params }: { params: { id: string } }) {
-  const [form, setForm] = useState();
   const dispatch = useDispatch();
   const usersList = useSelector((state: any) => state.users.allUsers);
   const isEdit = useSelector((state: any) => state.users.isEdit);
@@ -29,7 +28,7 @@ export default function Page({ params }: { params: { id: string } }) {
       <CardHeader title="Update User" />
       <CardContent>
         {isEdit && user && (
-          <UserForm form={form} setForm={setForm} user={user[0]} />
+          <UserForm user={user[0]} />
         )}
       </CardContent>
     </Card>

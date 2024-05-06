@@ -21,13 +21,13 @@ export default function RootLayout({
   const [queryClient] = useState(() => new QueryClient());
   return (
     <html lang='en'>
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
           <ProgressBar />
           <body className={inter.className}>{children}</body>
           <ToastContainer autoClose={2000} />
-        </Provider>
-      </QueryClientProvider>
+        </QueryClientProvider>
+      </Provider>
     </html>
   );
 }
