@@ -2,7 +2,6 @@
 
 import { Inter } from "next/font/google";
 import "./globals.css";
-import ProgressBar from "@/components/ProgressBar/ProgressBar";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "@/styles/globals.scss";
 import { Provider } from "react-redux";
@@ -11,6 +10,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ProgressBar from "@/components/ProgressBar/ProgressBar";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({

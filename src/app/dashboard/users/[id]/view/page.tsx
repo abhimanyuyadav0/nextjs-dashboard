@@ -51,7 +51,7 @@ export default function Page({ params }: { params: { id: string } }) {
         <CardMedia
           component='img'
           height='194'
-          image='/static/images/cards/paella.jpg'
+          image='/assets/dash.jpg'
           alt='Paella dish'
         />
         <CardContent>
